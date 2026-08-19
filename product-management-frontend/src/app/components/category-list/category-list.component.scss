@@ -1,0 +1,167 @@
+.inventory-page { padding: 2rem; position: relative; font-family: 'Inter', sans-serif; }
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  .count-pill {
+    background: #f1f5f9;
+    color: #475569;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .add-btn {
+    background: #6366f1;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      background: #4f46e5;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.table-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02); // Minimal shadow
+  overflow: hidden;
+}
+
+.category-table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  th { 
+    background: #f8fafc; 
+    padding: 1.25rem 1rem; 
+    text-align: left; 
+    color: #94a3b8; 
+    font-size: 0.75rem; 
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  td { 
+    padding: 1.25rem 1rem; 
+    border-top: 1px solid #f1f5f9;
+    color: #1e293b;
+    font-weight: 500;
+  }
+
+  tr:hover td {
+    background-color: #f8fafc;
+  }
+}
+
+.category-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  
+  .icon-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+}
+
+.action-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+
+  &.edit { 
+    color: #6366f1; 
+    &:hover { background: #eef2ff; }
+  }
+  
+  &.delete { 
+    color: #ef4444; 
+    &:hover { background: #fef2f2; }
+  }
+}
+
+// Minimalist Modal
+.modal-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 400px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+  h3 { 
+    margin: 0 0 1.5rem 0; 
+    font-size: 1.25rem;
+    color: #0f172a;
+  }
+  
+  label {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  input { 
+    width: 100%; 
+    padding: 0.75rem; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    
+    &:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+  }
+}
+
+.modal-footer {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+
+  button { 
+    flex: 1; 
+    padding: 0.75rem; 
+    border-radius: 10px; 
+    border: none; 
+    cursor: pointer; 
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+
+  .btn-cancel { background: #f1f5f9; color: #475569; }
+  .btn-save { background: #6366f1; color: white; }
+  
+  button:hover { opacity: 0.9; }
+}

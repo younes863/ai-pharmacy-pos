@@ -1,0 +1,143 @@
+<div class="inventory-page">
+
+  <header class="inventory-header">
+    <div class="title-info">
+      <h1>Inventory Management</h1>
+      <span class="badge">{{ filteredProducts.length }} Products Shown</span>
+    </div>
+
+    <div class="search-container">
+      <i class="bi bi-search"></i>
+      <input type="text" class="search-input" placeholder="Search products..." (input)="onSearch($event)">
+    </div>
+
+    <div class="header-actions"> <div class="view-switcher">
+        <button class="switcher-btn" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'" title="Grid View">
+          <i class="bi bi-grid-fill"></i>
+        </button>
+        <button class="switcher-btn" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'" title="Table View">
+          <i class="bi bi-list-ul"></i>
+        </button>
+      </div>
+
+      <button class="add-btn" (click)="openAddModal()">
+        <i class="bi bi-plus-circle"></i>
+        <span>Add New Product</span>
+      </button>
+    </div> </header>
+
+  <div class="inventory-body">
+    @if (activeFilter === 'low') {
+    <div class="filter-banner">
+      <div class="filter-text">
+        <i class="bi bi-funnel-fill"></i>
+        <span>Showing <strong>Low Stock Items</strong> ( {{ lowStockLimit }} or less)</span>
+      </div>
+      <button class="clear-filter-btn" (click)="clearFilter()">
+        Show All Products
+      </button>
+    </div>
+    }
+
+    @if (showSuccess) {
+    <div class="alert-toast">
+      <div class="alert alert-success shadow-sm">
+        <strong>Success!</strong> {{ successMessage }}
+        <button type="button" class="btn-close" (click)="showSuccess = false"></button>
+      </div>
+    </div>
+    }
+
+    @if (loading) {
+    <div class="loading-state">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p>Updating your inventory...</p>
+    </div>
+    }
+
+    @if (!loading && filteredProducts.length > 0) {
+      
+      @if (viewMode === 'grid') {
+        <div class="product-grid">
+          @for (p of filteredProducts; track p.id) {
+          <div class="product-card" [class.low-stock-alert]="p.stock < lowStockLimit">
+            <div class="card-header">
+              <h5 class="product-name">{{ p.name }}</h5>
+              <span class="price-tag">{{ p.price.toFixed(2) }} DH</span>
+            </div>
+
+            <div class="card-details">
+              <div class="stock-info">
+                <span class="label">Stock Level</span>
+                <span class="value" [class.text-danger]="p.stock < lowStockLimit">{{ p.stock }}</span>
+                @if (p.stock < 5) { 
+                  <i class="bi bi-exclamation-triangle-fill text-danger ms-2" title="Critical Stock Level"></i>
+                }
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <button class="edit-action" (click)="openEditModal(p)">
+                <i class="bi bi-pencil"></i> Edit
+              </button>
+              <button class="delete-action" (click)="openDeleteModal(p)">
+                <i class="bi bi-trash"></i> Delete
+              </button>
+            </div>
+          </div>
+          }
+        </div>
+      } @else {
+        <div class="table-container">
+          <table class="compact-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (p of filteredProducts; track p.id) {
+                <tr [class.low-stock-row]="p.stock < lowStockLimit">
+                  <td><strong>{{ p.name }}</strong></td>
+                  <td>
+                    <span [class.text-danger]="p.stock < lowStockLimit">{{ p.stock }}</span>
+                  </td>
+                  <td>{{ p.price.toFixed(2) }} DH</td>
+                  <td class="text-end">
+                    <button class="btn-icon" (click)="openEditModal(p)"><i class="bi bi-pencil"></i></button>
+                    <button class="btn-icon text-danger" (click)="openDeleteModal(p)"><i class="bi bi-trash"></i></button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    }
+
+    @if (!loading && filteredProducts.length === 0) {
+    <div class="empty-state">
+      <i class="bi bi-box-seam"></i>
+      <h4>No products found</h4>
+      <p>Try clearing your filters or adding a new item.</p>
+    </div>
+    }
+  </div>
+
+  <app-delete-confirmation-modal [show]="showDeleteModal" [productName]="productToDelete?.name || ''"
+    (confirm)="confirmDelete()" (cancel)="closeDeleteModal()">
+  </app-delete-confirmation-modal>
+
+  <app-modal [title]="modalTitle" [show]="showModal" (close)="closeModal()">
+    <div class="p-3">
+      @if (currentProduct) {
+      <app-product-form [product]="currentProduct" [categories]="categories" [isEditMode]="isEditMode"
+        (saved)="onProductSaved()" (canceled)="closeModal()">
+      </app-product-form>
+      }
+    </div>
+  </app-modal>
+</div>

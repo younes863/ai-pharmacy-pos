@@ -1,0 +1,51 @@
+<div class="p-3">
+  <form (ngSubmit)="save()">
+    <div class="row g-3">
+      <div class="col-md-5">
+        <label class="form-label fw-bold">Name</label>
+        <input type="text" class="form-control" [(ngModel)]="product.name" name="name" required>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label fw-bold">Category</label>
+        <select class="form-select" [(ngModel)]="product.category.id" name="categorySelect" required>
+          <option [ngValue]="0" disabled>Select category</option>
+          @for (cat of categories; track cat.id) {
+            <option [ngValue]="cat.id">{{ cat.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label fw-bold">Stock</label>
+        <input type="number" class="form-control" [(ngModel)]="product.stock" name="stock" required>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label fw-bold">Price (DH)</label>
+        <input type="number" step="0.01" class="form-control" [(ngModel)]="product.price" name="price" required>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label fw-bold">Barcode</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          [(ngModel)]="product.barcode" 
+          name="barcode" 
+          placeholder="Scan or type barcode number..."
+        >
+      </div>
+    </div>
+
+    <div class="mt-4 text-end">
+      <button type="button" class="btn btn-secondary me-2" (click)="cancel()">Cancel</button>
+
+      @if (isEditMode) {
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      } @else {
+        <button type="submit" class="btn btn-success">Add Product</button>
+      }
+    </div>
+  </form>
+</div>

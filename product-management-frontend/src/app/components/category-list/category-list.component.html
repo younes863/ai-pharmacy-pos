@@ -1,0 +1,74 @@
+<div class="inventory-page">
+    <div class="success-toast" [class.show]="showSuccess">
+        {{ successMessage }}
+    </div>
+
+    <header class="inventory-header">
+        <div class="header-status">
+            <span class="count-pill">{{ categories.length }} Categories Total</span>
+        </div>
+        <button class="add-btn" (click)="openAddModal()">
+            <i class="bi bi-plus"></i> Add New Category
+        </button>
+    </header>
+
+    <div class="inventory-body">
+        @if (loading) {
+        <div class="loader">Loading categories...</div>
+        } @else {
+        <div class="table-card">
+            <table class="category-table">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (cat of categories; track cat.id) {
+                    <tr>
+                        <td>
+                            <div class="category-info">
+                                <div class="icon-box" [style.color]="getCategoryColor(cat.id)"
+                                    [style.background-color]="getCategoryColor(cat.id) + '15'">
+                                    <i class="bi bi-tag-fill"></i>
+                                </div>
+                                <strong>{{ cat.name }}</strong>
+                            </div>
+                        </td>
+                        <td class="text-end">
+                            <button class="action-btn edit" (click)="openEditModal(cat)">
+                                <i class="bi bi-pencil"></i> Edit
+                            </button>
+                            <button class="action-btn delete" (click)="openDeleteModal(cat)">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        }
+    </div>
+
+    <app-modal [title]="modalTitle" [show]="showModal" (close)="showModal = false">
+        <div class="p-3">
+            @if (currentCategory) {
+            <div class="form-group">
+                <label>Category Name</label>
+                <input type="text" [(ngModel)]="currentCategory.name" class="form-control" placeholder="Enter name...">
+            </div>
+            <div class="modal-footer mt-4">
+                <button class="btn btn-secondary me-2" (click)="showModal = false">Cancel</button>
+                <button class="btn btn-primary" (click)="saveCategory()">Save Category</button>
+            </div>
+            }
+        </div>
+    </app-modal>
+
+    <app-delete-confirmation-modal [show]="showDeleteModal" [productName]="categoryToDelete?.name || ''"
+        (confirm)="confirmDelete()" (cancel)="closeDeleteModal()">
+    </app-delete-confirmation-modal>
+
+</div>

@@ -1,0 +1,20 @@
+@if (show) {
+  <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Confirm Deletion</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="onCancel()"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete <strong>{{ productName }}</strong>?
+          <p class="text-muted mt-2">This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+          <button type="button" class="btn btn-danger" (click)="onConfirm()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

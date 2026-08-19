@@ -1,0 +1,35 @@
+<div class="app-viewport">
+    <aside class="sidebar-card">
+        <div class="sidebar-header">
+            <div class="logo-box">
+                <mat-icon>inventory</mat-icon>
+            </div>
+            <span class="logo-text">STOCKMASTER</span>
+        </div>
+
+        <nav class="nav-menu">
+            <a routerLink="/dashboard" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-link">
+                <mat-icon>dashboard</mat-icon>
+                <span>Dashboard</span>
+            </a>
+            <a routerLink="/inventory" routerLinkActive="active" class="nav-link">
+                <mat-icon>inventory_2</mat-icon>
+                <span>Inventory</span>
+            </a>
+            <a routerLink="/categories" routerLinkActive="active" class="nav-link">
+                <mat-icon>category</mat-icon>
+                <span>Categories</span>
+            </a>
+            <a routerLink="/pos" routerLinkActive="active" class="nav-link">
+                <mat-icon>point_of_sale</mat-icon>
+                <span>Sales / POS</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="content-card">
+        <div class="scroll-container">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>

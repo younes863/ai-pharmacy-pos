@@ -1,0 +1,35 @@
+<div class="dashboard-container">
+    <div class="stats-grid">
+        <div class="stat-card clickable" routerLink="/inventory">
+            <div class="icon-box blue"><i class="bi bi-box-seam"></i></div>
+            <div class="stat-info">
+                <h3>Total Products</h3>
+                <p class="number">{{ totalProducts }}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="icon-box green"><i class="bi bi-currency-dollar"></i></div>
+            <div class="stat-info">
+                <h3>Stock Value</h3>
+                <p class="number">{{ totalValue.toFixed(0) }} DH</p>
+            </div>
+        </div>
+
+        <div class="stat-card" [routerLink]="['/inventory']" [queryParams]="{filter: 'low'}"
+            [class.warning]="lowStockCount > 0">
+            <div class="icon-box red"><i class="bi bi-exclamation-triangle"></i></div>
+            <div class="stat-info">
+                <h3>Low Stock</h3>
+                <p class="number">{{ lowStockCount }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h3>Stock Levels by Category</h3>
+        <div class="chart-wrapper">
+            <canvas id="stockChart"></canvas>
+        </div>
+    </div>
+</div>
